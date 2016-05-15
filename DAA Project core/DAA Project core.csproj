@@ -108,7 +108,6 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Splitter.cs" />
-    <Compile Include="statz.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="LogForm.resx">
@@ -136,7 +135,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -165,6 +165,7 @@
             this.Name = "AboutForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
+            this.Load += new System.EventHandler(this.AboutForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.GithubLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BahriaLogo)).EndInit();
             this.ResumeLayout(false);

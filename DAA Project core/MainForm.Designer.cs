@@ -45,13 +45,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.iconButton1 = new FontAwesomeIcons.IconButton();
-            this.iconButton2 = new FontAwesomeIcons.IconButton();
+            this.AboutButton = new FontAwesomeIcons.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.WindowsSizeSpinner)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconButton1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconButton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AboutButton)).BeginInit();
             this.SuspendLayout();
             // 
             // OpenFolderButton
@@ -72,7 +71,7 @@
             this.MainHeading.AutoSize = true;
             this.MainHeading.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MainHeading.ForeColor = System.Drawing.Color.Black;
-            this.MainHeading.Location = new System.Drawing.Point(155, 9);
+            this.MainHeading.Location = new System.Drawing.Point(160, 12);
             this.MainHeading.Name = "MainHeading";
             this.MainHeading.Size = new System.Drawing.Size(220, 21);
             this.MainHeading.TabIndex = 1;
@@ -195,9 +194,10 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(10, 96);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 15);
+            this.label6.Size = new System.Drawing.Size(65, 15);
             this.label6.TabIndex = 13;
             this.label6.Text = "Target file :";
             // 
@@ -210,6 +210,7 @@
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(443, 90);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(87, 27);
@@ -218,42 +219,33 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(273, 427);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Show Log";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // iconButton1
             // 
             this.iconButton1.ActiveColor = System.Drawing.Color.Black;
             this.iconButton1.BackColor = System.Drawing.Color.Transparent;
-            this.iconButton1.IconType = FontAwesomeIcons.IconType.Cogs;
+            this.iconButton1.IconType = FontAwesomeIcons.IconType.Cog;
             this.iconButton1.InActiveColor = System.Drawing.Color.DimGray;
-            this.iconButton1.Location = new System.Drawing.Point(464, 12);
+            this.iconButton1.Location = new System.Drawing.Point(466, 12);
             this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(30, 31);
+            this.iconButton1.Size = new System.Drawing.Size(28, 31);
             this.iconButton1.TabIndex = 19;
             this.iconButton1.TabStop = false;
             this.iconButton1.ToolTipText = null;
             this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click_1);
             // 
-            // iconButton2
+            // AboutButton
             // 
-            this.iconButton2.ActiveColor = System.Drawing.Color.Black;
-            this.iconButton2.BackColor = System.Drawing.Color.Transparent;
-            this.iconButton2.IconType = FontAwesomeIcons.IconType.RuestionCircle;
-            this.iconButton2.InActiveColor = System.Drawing.Color.DimGray;
-            this.iconButton2.Location = new System.Drawing.Point(500, 12);
-            this.iconButton2.Name = "iconButton2";
-            this.iconButton2.Size = new System.Drawing.Size(28, 31);
-            this.iconButton2.TabIndex = 20;
-            this.iconButton2.TabStop = false;
-            this.iconButton2.ToolTipText = null;
+            this.AboutButton.ActiveColor = System.Drawing.Color.Black;
+            this.AboutButton.BackColor = System.Drawing.Color.Transparent;
+            this.AboutButton.IconType = FontAwesomeIcons.IconType.RuestionCircle;
+            this.AboutButton.InActiveColor = System.Drawing.Color.DimGray;
+            this.AboutButton.Location = new System.Drawing.Point(500, 12);
+            this.AboutButton.Name = "AboutButton";
+            this.AboutButton.Size = new System.Drawing.Size(28, 31);
+            this.AboutButton.TabIndex = 20;
+            this.AboutButton.TabStop = false;
+            this.AboutButton.ToolTipText = null;
+            this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
             // 
             // MainForm
             // 
@@ -261,9 +253,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(542, 474);
-            this.Controls.Add(this.iconButton2);
+            this.Controls.Add(this.AboutButton);
             this.Controls.Add(this.iconButton1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label6);
@@ -290,7 +281,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.WindowsSizeSpinner)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.iconButton1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.iconButton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AboutButton)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,8 +305,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private FontAwesomeIcons.IconButton iconButton1;
-        private FontAwesomeIcons.IconButton iconButton2;
+        private FontAwesomeIcons.IconButton AboutButton;
     }
 }

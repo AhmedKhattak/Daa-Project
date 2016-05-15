@@ -49,7 +49,7 @@ namespace DAA_Project_core
         {
             try
             {
-                Process.Start("https://github.com/AhmedKhattak");
+                Process.Start("https://github.com/AhmedKhattak/Daa-Project");
             }
             catch (Exception x)
             {
@@ -60,9 +60,13 @@ namespace DAA_Project_core
         private void InitToolTips()
         {
             ToolTip AboutForm_toolTip = new ToolTip();
-            AboutForm_toolTip.SetToolTip(this.GithubLogo, "https://github.com/AhmedKhattak");
+            AboutForm_toolTip.SetToolTip(this.GithubLogo, "https://github.com/AhmedKhattak/Daa-Project");
             AboutForm_toolTip.SetToolTip(this.BahriaLogo, "http://aliashraf.net/");
         }
-        
+
+        private void AboutForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
