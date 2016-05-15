@@ -1,0 +1,8 @@
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/obj/Debug/DAA_Project_core.bu128.ico
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/obj/Debug/DAA_Project_core.Resources.bu128.png
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/obj/Debug/DAA_Project_core.Form1.resources
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/obj/Debug/DAA_Project_core.Properties.Resources.resources
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/bin/Debug/DAA Project core.exe
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/obj/Debug/DAA Project core.exe
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/bin/Debug/DAA Project core.exe.mdb
+/media/ahmed/805AF7635AF7547E/Users/ahmed/Documents/Visual Studio 2013/Projects/DAA Project core/DAA Project core/obj/Debug/DAA Project core.exe.mdb
