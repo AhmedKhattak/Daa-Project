@@ -22,22 +22,24 @@ namespace DAA_Project_core
         private int windowSize = 0;
         double threshhold;
         int targetFilesLength = 0;
-        private string[] targetfiles;
+        private string[] targetfiles=null;
         List<string> filetomatchwords = new List<string>();
-        List<string[]> hugeList = new List<string[]>();
+        List<FileObject> listOfFileObjects= new List<FileObject>();
         BlockingCollection<FileObject> BC2;
         LogForm form;
         AboutForm about;
         Stopwatch sw = new Stopwatch();
-
+       
         public MainForm()
         {
             InitializeComponent();
             //form = new LogForm(this);
             about = new AboutForm();
             increaseProcessPriority();
-
+            
         }
+
+       
 
         /// <summary>
         /// opens the folder browser dialog and gets the path in text of the selected folder  if no path is selected
@@ -49,6 +51,8 @@ namespace DAA_Project_core
         {
             FolderPathTextbox.Text = OpenFolder();
             targetFolderPath = FolderPathTextbox.Text;
+            if(targetfiles!=null)
+            { Array.Clear(targetfiles, 0, targetfiles.Length); }
             targetfiles = GetFileCollection(targetFolderPath);
             if (targetfiles != null)
             {
@@ -67,7 +71,6 @@ namespace DAA_Project_core
 
             //get window size and then go through checks
             windowSize = Convert.ToInt32(WindowsSizeSpinner.Value);
-            LogBox.AppendText(BC2.Count.ToString());
             if (targetFolderPath == string.Empty)
             {
                 LogBox.AppendText("Please select a valid target folder in order to continue !" + Environment.NewLine);
@@ -83,10 +86,6 @@ namespace DAA_Project_core
             else if (outPutFolderPath==string.Empty)
             {
                 LogBox.AppendText("Please select a valid output folder in order to continue  !" + Environment.NewLine);
-            }
-            else if (!double.TryParse(ThresholdTextBox.Text,out threshhold))
-            {
-                LogBox.AppendText("Number is not a double ! please enter the double number in correct format" + Environment.NewLine);
             }
             else
             {
@@ -106,6 +105,18 @@ namespace DAA_Project_core
 
                     t2();
 
+                }).ContinueWith((ok)=> {
+
+
+                    this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("finding file with largest ratio...\n")); });
+                    var max=  listOfFileObjects.OrderByDescending(o => o.ratio).First();
+                    this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("Best Match : File {0} Ratio {1}\n", max.fileName, max.ratio)); });
+                    //foreach (var x in listOfFileObjects)
+                    //{
+                    //    this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("File {0} Ratio {1}\n", x.fileName, x.ratio)); });
+                    //}
+                   
+
                 });
 
             }
@@ -122,7 +133,7 @@ namespace DAA_Project_core
         {
 
 
-            var splitter = new StringSplitter(4000);
+          
 
             StringBuilder builder = new StringBuilder();
             try
@@ -154,7 +165,7 @@ namespace DAA_Project_core
             }
             finally
             {
-                this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("Finally Block Reached in task 1\n")); });
+                
             }
         }
 
@@ -162,28 +173,52 @@ namespace DAA_Project_core
         private void t2()
         {
             int count = 1;
+            int counter = 0;
             try
             {
 
                 this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("started task 2\n")); });
-                var splitter = new StringSplitter(10000);
+                string[] words;
                 foreach (var x in BC2.GetConsumingEnumerable())
                 {
 
 
-                    splitter.SafeSplit(x.FileContentstring, ' ');
-                    x.FileContentstring = string.Empty;
-                    if (((double)filetomatchwords.Intersect(splitter.Results).Count() / (double)filetomatchwords.Union(splitter.Results).Count()) > threshhold)
+                    words = x.fileContentstring.Replace("\r\n", " ").Split(' ');
+                    x.fileContentstring= string.Empty;
+                    x.ratio =(double)(filetomatchwords.Intersect(words).Count() / (double)filetomatchwords.Union(words).Count());
+
+                    if (radioButton2.Checked)
                     {
-                        matchedfile = x.FileName;
+                        count = 1;
+                        using (StreamWriter writer = new StreamWriter(outPutFolderPath + @"\" + Path.GetFileName(x.fileName)))
+                        {
+                            for (int xx = 0; xx < words.Length; xx++)
+                            {
+
+                                if (count == windowSize)
+                                {
+                                    writer.Write(words[xx] + " ");
+                                    writer.WriteLine();
+                                    count = 1;
+                                }
+                                else
+                                {
+                                    writer.Write(words[xx] + " ");
+                                    count++;
+                                }
+                            }
+                            counter++;
+
+                        }
                     }
-                    Array.Clear(splitter.buffer, 0, splitter.buffer.Length);
-                    this.Invoke((MethodInvoker)delegate { FilesLeft.Text = targetFilesLength + "/" + count; });
+                    Array.Clear(words, 0, words.Length);
+                    listOfFileObjects.Add(x);
+                    this.Invoke((MethodInvoker)delegate { FilesLeft.Text = targetFilesLength + "/" + counter; });
                     count++;
 
                 }
                 this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("completed task 2\n")); });
-                this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("t2...{0}/{1}  time uptill now {2}\n", count, targetFilesLength, sw.Elapsed)); });
+                this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("t2...{0}/{1}  time uptill now {2}\n", counter, targetFilesLength, sw.Elapsed)); });
             }
             catch (Exception x)
             {
@@ -191,7 +226,7 @@ namespace DAA_Project_core
             }
             finally
             {
-                this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("Best Match {0} ", matchedfile)); });
+               
             }
         }
 
@@ -307,7 +342,7 @@ namespace DAA_Project_core
             }
         }
 
-        private async void  button1_Click(object sender, EventArgs e)
+        private void  button1_Click(object sender, EventArgs e)
         {
 
             TargetFilePathTextBox.Text= openFile();
@@ -321,7 +356,7 @@ namespace DAA_Project_core
             {
                 try
                 {
-                    string text = await ReadTextAsync(filetomatch);
+                    string text = File.ReadAllText(filetomatch);
                     filetomatchwords = text.Split(' ').ToList();
                     LogBox.AppendText("Loaded Target File :" +filetomatch+Environment.NewLine);
                 }
@@ -396,25 +431,26 @@ namespace DAA_Project_core
         }
 
 
-        /// <summary>
-        /// double,float,float only textbox
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ThresholdTextBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char ch = e.KeyChar;
-            if (ch == 46 && ThresholdTextBox.Text.IndexOf('.') != -1)
-            {
-                e.Handled = true;
-                return;
-            }
+        ///// <summary>
+        ///// double,float,float only textbox
+        ///// </summary>
+        ///// <param name="sender"></param>
+        ///// <param name="e"></param>
+        //private void ThresholdTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        //{
+        //    char ch = e.KeyChar;
+        //    if (ch == 46 && ThresholdTextBox.Text.IndexOf('.') != -1)
+        //    {
+        //        e.Handled = true;
+        //        return;
+        //    }
 
-            if (!char.IsDigit(ch) && ch != 8 && ch != 46)
-            {
-                e.Handled = true;
-            }
-        }
+        //    if (!char.IsDigit(ch) && ch != 8 && ch != 46)
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
+
         #endregion
 
 

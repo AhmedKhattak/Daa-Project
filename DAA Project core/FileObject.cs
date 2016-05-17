@@ -2,21 +2,13 @@
 {
     class FileObject
     {
-        private string fileName;
+        public string fileName;
 
-        public string FileName
-        {
-            get { return fileName; }
-            set { fileName = value; }
-        }
-        private string fileContentstring;
+       
+        public string fileContentstring;
 
-        public string FileContentstring
-        {
-            get { return fileContentstring; }
-            set { fileContentstring = value; }
-        }
 
+        public double ratio=0.0;
 
 
         public FileObject(string filename, string filecontentstring)

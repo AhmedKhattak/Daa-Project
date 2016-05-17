@@ -1,0 +1,10 @@
+Loaded 2543 File Entries
+Loaded Target File :C:\Users\KhattaK\Desktop\daa files\DAA-test-2\test_file.txt
+started task 1
+started task 2
+Finally Block Reached in task 1
+completed task 2
+t2...2/2543  time uptill now 00:00:28.0953425
+Best Match  finding file with largest ratio...
+Best Match : File C:\Users\KhattaK\Desktop\daa files\DAA-test-2\Target\test_file - Copy (12).txt Ratio 0.454545454545455
+
