@@ -121,7 +121,7 @@
             // 
             this.groupBox1.Controls.Add(this.LogBox);
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 238);
+            this.groupBox1.Location = new System.Drawing.Point(12, 255);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(522, 194);
             this.groupBox1.TabIndex = 6;
@@ -133,7 +133,7 @@
             this.LogBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
             this.LogBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.LogBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LogBox.Location = new System.Drawing.Point(6, 23);
+            this.LogBox.Location = new System.Drawing.Point(6, 19);
             this.LogBox.Name = "LogBox";
             this.LogBox.ReadOnly = true;
             this.LogBox.Size = new System.Drawing.Size(510, 169);
@@ -145,7 +145,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(77, 435);
+            this.label5.Location = new System.Drawing.Point(77, 452);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(20, 24);
             this.label5.TabIndex = 7;
@@ -170,7 +170,7 @@
             // ClearLogButton
             // 
             this.ClearLogButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ClearLogButton.Location = new System.Drawing.Point(447, 438);
+            this.ClearLogButton.Location = new System.Drawing.Point(447, 455);
             this.ClearLogButton.Name = "ClearLogButton";
             this.ClearLogButton.Size = new System.Drawing.Size(87, 25);
             this.ClearLogButton.TabIndex = 10;
@@ -181,7 +181,7 @@
             // ExportLogButton
             // 
             this.ExportLogButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ExportLogButton.Location = new System.Drawing.Point(354, 438);
+            this.ExportLogButton.Location = new System.Drawing.Point(354, 455);
             this.ExportLogButton.Name = "ExportLogButton";
             this.ExportLogButton.Size = new System.Drawing.Size(87, 25);
             this.ExportLogButton.TabIndex = 11;
@@ -192,7 +192,7 @@
             // FilesLeft
             // 
             this.FilesLeft.AutoSize = true;
-            this.FilesLeft.Location = new System.Drawing.Point(15, 438);
+            this.FilesLeft.Location = new System.Drawing.Point(15, 455);
             this.FilesLeft.Name = "FilesLeft";
             this.FilesLeft.Size = new System.Drawing.Size(16, 15);
             this.FilesLeft.TabIndex = 12;
@@ -232,7 +232,7 @@
             this.AboutButton.BackColor = System.Drawing.Color.Transparent;
             this.AboutButton.IconType = FontAwesomeIcons.IconType.RuestionCircle;
             this.AboutButton.InActiveColor = System.Drawing.Color.DimGray;
-            this.AboutButton.Location = new System.Drawing.Point(500, 12);
+            this.AboutButton.Location = new System.Drawing.Point(502, 12);
             this.AboutButton.Name = "AboutButton";
             this.AboutButton.Size = new System.Drawing.Size(28, 31);
             this.AboutButton.TabIndex = 20;
@@ -285,7 +285,7 @@
             this.groupBox2.Controls.Add(this.TarGetFolderLabel);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Location = new System.Drawing.Point(12, 36);
+            this.groupBox2.Location = new System.Drawing.Point(12, 39);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(522, 196);
             this.groupBox2.TabIndex = 25;
@@ -318,7 +318,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(542, 494);
+            this.ClientSize = new System.Drawing.Size(542, 508);
             this.Controls.Add(this.OutPutFolderButton);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.AboutButton);
