@@ -17,7 +17,7 @@ namespace DAA_Project_core
         {
             InitializeComponent();
             formRefrence = f1;
-           
+
         }
     }
 }

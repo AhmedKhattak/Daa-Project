@@ -38,24 +38,12 @@ namespace DAA_Project_core.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool isDragDropEnabled {
+        public bool makeProcessedFilesChoice {
             get {
-                return ((bool)(this["isDragDropEnabled"]));
+                return ((bool)(this["makeProcessedFilesChoice"]));
             }
             set {
-                this["isDragDropEnabled"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string executionMethod {
-            get {
-                return ((string)(this["executionMethod"]));
-            }
-            set {
-                this["executionMethod"] = value;
+                this["makeProcessedFilesChoice"] = value;
             }
         }
     }

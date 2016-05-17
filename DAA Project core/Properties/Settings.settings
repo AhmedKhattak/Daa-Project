@@ -5,11 +5,8 @@
     <Setting Name="isProcessingSkipped" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="isDragDropEnabled" Type="System.Boolean" Scope="User">
+    <Setting Name="makeProcessedFilesChoice" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="executionMethod" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

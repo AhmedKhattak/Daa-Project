@@ -19,7 +19,7 @@ namespace DAA_Project_core
             {
                 Process.Start("http://aliashraf.net/");
             }
-            catch(Exception x)
+            catch (Exception x)
             {
                 Console.WriteLine(x.Message);
             }

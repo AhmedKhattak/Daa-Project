@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DAA_Project_core
 {
-     class MinHash
+    class MinHash
     {
         private const int m_numHashFunctions = 100; //Modify this parameter
         private delegate int Hash(int index);
@@ -28,7 +28,7 @@ namespace DAA_Project_core
                 uint b = (uint)r.Next(universeSize);
                 uint c = (uint)r.Next(universeSize);
                 m_hashFunctions[i] = x => QHash((uint)x, a, b, c, (uint)universeSize);
-            } 
+            }
         }
 
         public double Similarity<T>(HashSet<T> set1, HashSet<T> set2)
@@ -37,7 +37,7 @@ namespace DAA_Project_core
 
             int numSets = 2;
             Dictionary<T, bool[]> bitMap = BuildBitMap(set1, set2);
-            
+
             int[,] minHashValues = GetMinHashSlots(numSets, m_numHashFunctions);
 
             ComputeMinHashForSet(set1, 0, minHashValues, bitMap);
@@ -53,7 +53,7 @@ namespace DAA_Project_core
             {
                 for (int i = 0; i < m_numHashFunctions; i++)
                 {
-                    if(set.Contains(element))
+                    if (set.Contains(element))
                     {
                         int hindex = m_hashFunctions[i](index);
 

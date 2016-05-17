@@ -49,5 +49,4 @@ C:\Users\Ahmed\Desktop\daa\DAA Project core\obj\Debug\DAA_Project_core.LogForm.r
 C:\Users\Ahmed\Desktop\daa\DAA Project core\obj\Debug\DAA_Project_core.MainForm.resources
 C:\Users\Ahmed\Desktop\daa\DAA Project core\obj\Debug\DAA_Project_core.AboutForm.resources
 C:\Users\Ahmed\Desktop\daa\DAA Project core\obj\Debug\DAA_Project_core.Properties.Resources.resources
-C:\Users\Ahmed\Desktop\daa\DAA Project core\obj\Debug\DAA_Project_core.SettingsForm.resources
 C:\Users\Ahmed\Desktop\daa\DAA Project core\obj\Debug\DAA Project core.csproj.GenerateResource.Cache

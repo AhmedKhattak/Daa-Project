@@ -10,25 +10,25 @@ using System.Collections.Concurrent; //for thread safe blocking collections
 using System.Drawing; //for widgets on the form
 namespace DAA_Project_core
 {
-    public partial class MainForm : Form 
+    public partial class MainForm : Form
     {
         /// <summary>
-        /// field inits
+        /// organized fields according to their types and near types
         /// </summary>
-        LogForm form;
         private string folderPath = string.Empty;
-        private int windowSize=0;
-        private string[] targetfiles;
         string matchedfile;
         string filetomatch;
-        List<string> filetomatchwords = new List<string>();
-        double threshold = 0.5;
-        Stopwatch sw = new Stopwatch();
+        private int windowSize = 0;
+        double threshold;
         int targetFilesLength = 0;
-        BlockingCollection<FileObject> BC2;
+        private string[] targetfiles;
+        List<string> filetomatchwords = new List<string>();
         List<string[]> hugeList = new List<string[]>();
+        BlockingCollection<FileObject> BC2;
+        LogForm form;
         AboutForm about;
-     
+        Stopwatch sw = new Stopwatch();
+
         public MainForm()
         {
             InitializeComponent();
@@ -36,7 +36,6 @@ namespace DAA_Project_core
             about = new AboutForm();
             increaseProcessPriority();
 
-            
         }
 
         /// <summary>
@@ -52,8 +51,8 @@ namespace DAA_Project_core
             targetfiles = GetFileCollection(folderPath);
             if (targetfiles != null)
             {
-                if(targetfiles.Length!=0)
-                LogBox.AppendText(String.Format("Loaded {0} File Entries\n", targetfiles.Length));
+                if (targetfiles.Length != 0)
+                    LogBox.AppendText(String.Format("Loaded {0} File Entries\n", targetfiles.Length));
             }
         }
 
@@ -62,20 +61,20 @@ namespace DAA_Project_core
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private  void ExecuteButton_Click(object sender, EventArgs e)
+        private void ExecuteButton_Click(object sender, EventArgs e)
         {
-            
+
             //get window size and then go through checks
             windowSize = Convert.ToInt32(WindowsSizeSpinner.Value);
             if (folderPath == string.Empty)
             {
                 LogBox.AppendText("Please select a valid folder in order to continue !" + Environment.NewLine);
             }
-            else  if (windowSize==0)
+            else if (windowSize == 0)
             {
                 LogBox.AppendText("Window size must be greater than 0 !" + Environment.NewLine);
             }
-            else if(filetomatchwords.Count==0)
+            else if (filetomatchwords.Count == 0)
             {
                 LogBox.AppendText("Please select a target file and wait for it to load !" + Environment.NewLine);
             }
@@ -111,37 +110,37 @@ namespace DAA_Project_core
         /// </summary>
         private void t1()
         {
-            
+
 
             var splitter = new StringSplitter(4000);
-            
-            StringBuilder builder =new StringBuilder();
+
+            StringBuilder builder = new StringBuilder();
             try
             {
 
 
                 this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("started task 1\n")); });
 
-               
+
                 foreach (var file in targetfiles)
                 {
                     foreach (string line in File.ReadLines(file))
                     {
                         builder.Append(line);
                     }
-                    BC2.Add(new FileObject(file,builder.ToString()));
+                    BC2.Add(new FileObject(file, builder.ToString()));
                     builder.Clear();
-                   
+
                 }
-                 BC2.CompleteAdding(); //tells the blocking collection that it should not expect any more data to be added to it
+                BC2.CompleteAdding(); //tells the blocking collection that it should not expect any more data to be added to it
                 //this ensures that the collection does not sit in an infinite blocking state
 
             }
             catch (Exception xx)
             {
 
-               
-                
+
+
             }
             finally
             {
@@ -158,10 +157,10 @@ namespace DAA_Project_core
 
                 this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("started task 2\n")); });
                 var splitter = new StringSplitter(10000);
-                foreach (var x in  BC2.GetConsumingEnumerable())
+                foreach (var x in BC2.GetConsumingEnumerable())
                 {
 
-                    
+
                     splitter.SafeSplit(x.FileContentstring, ' ');
                     x.FileContentstring = string.Empty;
                     if (((double)filetomatchwords.Intersect(splitter.Results).Count() / (double)filetomatchwords.Union(splitter.Results).Count()) > threshold)
@@ -267,73 +266,73 @@ namespace DAA_Project_core
                 File.WriteAllLines("Log.txt", LogBox.Lines);
                 LogBox.AppendText("Exported Log !" + Environment.NewLine);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogBox.AppendText(ex.Message + Environment.NewLine);
             }
         }
 
 
-       
-
-       
-        
 
 
 
 
-     
 
 
-      
-       private void button1_Click(object sender, EventArgs e)
-       {
 
 
-           StreamReader srm = null;
-           StringBuilder builder = new StringBuilder();
-           try
-           {
-               
 
-               filetomatch = openFile();
-               if (filetomatch != string.Empty)
-               {
-                   LogBox.AppendText(String.Format("Loading Target File {0} please wait\n", filetomatch));
-                   textBox1.Text = filetomatch;
-                   srm = File.OpenText(filetomatch);
-                   {
-                       while (!srm.EndOfStream)
-                       {
-                           builder.Append((srm.ReadLine()));
-                       }
 
-                       srm.DiscardBufferedData();
-                       srm.Close();
 
-                   }
 
-                   filetomatchwords = builder.ToString().Split(' ').ToList();
-                   LogBox.AppendText(String.Format("Loaded  Target File {0} ", filetomatch));
-               }
-               else
-               {
-                   //
-               }
-           }
-           catch (Exception x)
-           {
-               Console.WriteLine(x.Message);
-           }
-           finally
-           {
-               if (srm != null)
-               { srm.Dispose(); }
-               builder.Clear();
-           }
-         
-       }
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+
+            StreamReader srm = null;
+            StringBuilder builder = new StringBuilder();
+            try
+            {
+
+
+                filetomatch = openFile();
+                if (filetomatch != string.Empty)
+                {
+                    LogBox.AppendText(String.Format("Loading Target File {0} please wait\n", filetomatch));
+                    textBox1.Text = filetomatch;
+                    srm = File.OpenText(filetomatch);
+                    {
+                        while (!srm.EndOfStream)
+                        {
+                            builder.Append((srm.ReadLine()));
+                        }
+
+                        srm.DiscardBufferedData();
+                        srm.Close();
+
+                    }
+
+                    filetomatchwords = builder.ToString().Split(' ').ToList();
+                    LogBox.AppendText(String.Format("Loaded  Target File {0} ", filetomatch));
+                }
+                else
+                {
+                    //
+                }
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x.Message);
+            }
+            finally
+            {
+                if (srm != null)
+                { srm.Dispose(); }
+                builder.Clear();
+            }
+
+        }
+
 
         private string openFile()
         {
@@ -353,21 +352,21 @@ namespace DAA_Project_core
         }
 
 
-        
+
 
 
         private void button2_Click(object sender, EventArgs e)
         {
             form.StartPosition = FormStartPosition.Manual;
-            form.Location = new Point(this.Right-10, this.Top);
+            form.Location = new Point(this.Right - 10, this.Top);
             form.Height = this.Height;
             form.Show();
         }
 
         private void MainForm_LocationChanged(object sender, EventArgs e)
         {
-            if(form!=null)
-            form.Location = new Point(this.Right-10,this.Top);
+            if (form != null)
+                form.Location = new Point(this.Right - 10, this.Top);
         }
 
         private void iconButton1_Click_1(object sender, EventArgs e)

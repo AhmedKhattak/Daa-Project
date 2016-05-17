@@ -23,20 +23,20 @@ namespace DAA_Project_core
             set { fileContentstring = value; }
         }
 
-        
 
-        public  FileObject(string filename,string filecontentstring)
+
+        public FileObject(string filename, string filecontentstring)
         {
             fileName = filename;
             fileContentstring = filecontentstring;
         }
 
-        ~ FileObject()
+        ~FileObject()
         {
             fileName = string.Empty;
             fileContentstring = string.Empty;
         }
 
-       
+
     }
 }
