@@ -15,11 +15,12 @@ namespace DAA_Project_core
         /// <summary>
         /// organized fields according to their types and near types
         /// </summary>
-        private string folderPath = string.Empty;
+        private string targetFolderPath = string.Empty;
         string matchedfile;
         string filetomatch;
+        string outPutFolderPath = string.Empty;
         private int windowSize = 0;
-        double threshold;
+        double threshhold;
         int targetFilesLength = 0;
         private string[] targetfiles;
         List<string> filetomatchwords = new List<string>();
@@ -32,7 +33,7 @@ namespace DAA_Project_core
         public MainForm()
         {
             InitializeComponent();
-            form = new LogForm(this);
+            //form = new LogForm(this);
             about = new AboutForm();
             increaseProcessPriority();
 
@@ -47,12 +48,12 @@ namespace DAA_Project_core
         private void OpenFolderButton_Click(object sender, EventArgs e)
         {
             FolderPathTextbox.Text = OpenFolder();
-            folderPath = FolderPathTextbox.Text;
-            targetfiles = GetFileCollection(folderPath);
+            targetFolderPath = FolderPathTextbox.Text;
+            targetfiles = GetFileCollection(targetFolderPath);
             if (targetfiles != null)
             {
                 if (targetfiles.Length != 0)
-                    LogBox.AppendText(String.Format("Loaded {0} File Entries\n", targetfiles.Length));
+                    LogBox.AppendText(string.Format("Loaded {0} File Entries\n", targetfiles.Length));
             }
         }
 
@@ -66,9 +67,10 @@ namespace DAA_Project_core
 
             //get window size and then go through checks
             windowSize = Convert.ToInt32(WindowsSizeSpinner.Value);
-            if (folderPath == string.Empty)
+            LogBox.AppendText(BC2.Count.ToString());
+            if (targetFolderPath == string.Empty)
             {
-                LogBox.AppendText("Please select a valid folder in order to continue !" + Environment.NewLine);
+                LogBox.AppendText("Please select a valid target folder in order to continue !" + Environment.NewLine);
             }
             else if (windowSize == 0)
             {
@@ -78,9 +80,17 @@ namespace DAA_Project_core
             {
                 LogBox.AppendText("Please select a target file and wait for it to load !" + Environment.NewLine);
             }
+            else if (outPutFolderPath==string.Empty)
+            {
+                LogBox.AppendText("Please select a valid output folder in order to continue  !" + Environment.NewLine);
+            }
+            else if (!double.TryParse(ThresholdTextBox.Text,out threshhold))
+            {
+                LogBox.AppendText("Number is not a double ! please enter the double number in correct format" + Environment.NewLine);
+            }
             else
             {
-                sw.Start();
+                sw.Start();//start stopwatch
                 targetFilesLength = targetfiles.Length;
                 //size of bocking collection is preset to avoid resizing the internal array
                 BC2 = new BlockingCollection<FileObject>(targetFilesLength);
@@ -163,7 +173,7 @@ namespace DAA_Project_core
 
                     splitter.SafeSplit(x.FileContentstring, ' ');
                     x.FileContentstring = string.Empty;
-                    if (((double)filetomatchwords.Intersect(splitter.Results).Count() / (double)filetomatchwords.Union(splitter.Results).Count()) > threshold)
+                    if (((double)filetomatchwords.Intersect(splitter.Results).Count() / (double)filetomatchwords.Union(splitter.Results).Count()) > threshhold)
                     {
                         matchedfile = x.FileName;
                     }
@@ -277,59 +287,51 @@ namespace DAA_Project_core
 
 
 
+        private async Task<string> ReadTextAsync(string filePath)
+        {
+            using (FileStream sourceStream = new FileStream(filePath,
+                FileMode.Open, FileAccess.Read, FileShare.Read,
+                bufferSize: 4096, useAsync: true))
+            {
+                StringBuilder sb = new StringBuilder();
 
+                byte[] buffer = new byte[0x1000];
+                int numRead;
+                while ((numRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
+                {
+                    string text = Encoding.Unicode.GetString(buffer, 0, numRead);
+                    sb.Append(text);
+                }
 
+                return sb.ToString();
+            }
+        }
 
-
-
-
-
-
-        private void button1_Click(object sender, EventArgs e)
+        private async void  button1_Click(object sender, EventArgs e)
         {
 
-
-            StreamReader srm = null;
-            StringBuilder builder = new StringBuilder();
-            try
+            TargetFilePathTextBox.Text= openFile();
+            filetomatch = TargetFilePathTextBox.Text;
+            filetomatchwords.Clear();
+            if (File.Exists(filetomatch) == false)
             {
-
-
-                filetomatch = openFile();
-                if (filetomatch != string.Empty)
+                LogBox.AppendText("File not found please select valid file !" + Environment.NewLine);
+            }
+            else
+            {
+                try
                 {
-                    LogBox.AppendText(String.Format("Loading Target File {0} please wait\n", filetomatch));
-                    textBox1.Text = filetomatch;
-                    srm = File.OpenText(filetomatch);
-                    {
-                        while (!srm.EndOfStream)
-                        {
-                            builder.Append((srm.ReadLine()));
-                        }
-
-                        srm.DiscardBufferedData();
-                        srm.Close();
-
-                    }
-
-                    filetomatchwords = builder.ToString().Split(' ').ToList();
-                    LogBox.AppendText(String.Format("Loaded  Target File {0} ", filetomatch));
+                    string text = await ReadTextAsync(filetomatch);
+                    filetomatchwords = text.Split(' ').ToList();
+                    LogBox.AppendText("Loaded Target File :" +filetomatch+Environment.NewLine);
                 }
-                else
+                catch (Exception ex)
                 {
-                    //
+                    Debug.WriteLine(ex.Message);
                 }
             }
-            catch (Exception x)
-            {
-                Console.WriteLine(x.Message);
-            }
-            finally
-            {
-                if (srm != null)
-                { srm.Dispose(); }
-                builder.Clear();
-            }
+
+
 
         }
 
@@ -351,10 +353,6 @@ namespace DAA_Project_core
             }
         }
 
-
-
-
-
         private void button2_Click(object sender, EventArgs e)
         {
             form.StartPosition = FormStartPosition.Manual;
@@ -369,11 +367,6 @@ namespace DAA_Project_core
                 form.Location = new Point(this.Right - 10, this.Top);
         }
 
-        private void iconButton1_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void AboutButton_Click(object sender, EventArgs e)
         {
             AboutForm x = new AboutForm();
@@ -382,11 +375,45 @@ namespace DAA_Project_core
 
 
         /// <summary>
-        /// increase process priority may lead to faster execution as the prog will have more time inside cpu
+        /// increase process priority may lead to faster execution as the program will have more time inside cpu
         /// </summary>
         private void increaseProcessPriority()
         {
             System.Diagnostics.Process.GetCurrentProcess().PriorityClass = System.Diagnostics.ProcessPriorityClass.High;
+        }
+
+
+
+        /// <summary>
+        /// gets the output folder path
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OutPutFolderButton_Click(object sender, EventArgs e)
+        {
+            outPutFolderTextBox.Text = OpenFolder();
+            outPutFolderPath = outPutFolderTextBox.Text;
+        }
+
+
+        /// <summary>
+        /// double,float,float only textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ThresholdTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char ch = e.KeyChar;
+            if (ch == 46 && ThresholdTextBox.Text.IndexOf('.') != -1)
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (!char.IsDigit(ch) && ch != 8 && ch != 46)
+            {
+                e.Handled = true;
+            }
         }
         #endregion
 

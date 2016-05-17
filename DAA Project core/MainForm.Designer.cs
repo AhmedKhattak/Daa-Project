@@ -43,18 +43,18 @@
             this.ExportLogButton = new System.Windows.Forms.Button();
             this.FilesLeft = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TargetFilePathTextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.AboutButton = new FontAwesomeIcons.IconButton();
             this.TarGetFolderLabel = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.outPutFolderTextBox = new System.Windows.Forms.TextBox();
             this.OutPutFolderButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.ThresholdTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.WindowsSizeSpinner)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AboutButton)).BeginInit();
@@ -64,7 +64,7 @@
             // OpenFolderButton
             // 
             this.OpenFolderButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OpenFolderButton.Location = new System.Drawing.Point(422, 18);
+            this.OpenFolderButton.Location = new System.Drawing.Point(422, 20);
             this.OpenFolderButton.Name = "OpenFolderButton";
             this.OpenFolderButton.Size = new System.Drawing.Size(87, 27);
             this.OpenFolderButton.TabIndex = 0;
@@ -87,17 +87,28 @@
             // 
             // FolderPathTextbox
             // 
-            this.FolderPathTextbox.Location = new System.Drawing.Point(104, 21);
+            this.FolderPathTextbox.Location = new System.Drawing.Point(104, 25);
             this.FolderPathTextbox.Name = "FolderPathTextbox";
             this.FolderPathTextbox.Size = new System.Drawing.Size(312, 21);
             this.FolderPathTextbox.TabIndex = 2;
+            this.FolderPathTextbox.Text = "No target folder selected";
             // 
             // WindowsSizeSpinner
             // 
             this.WindowsSizeSpinner.Location = new System.Drawing.Point(104, 122);
+            this.WindowsSizeSpinner.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             this.WindowsSizeSpinner.Name = "WindowsSizeSpinner";
             this.WindowsSizeSpinner.Size = new System.Drawing.Size(312, 21);
             this.WindowsSizeSpinner.TabIndex = 3;
+            this.WindowsSizeSpinner.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // label2
             // 
@@ -161,7 +172,7 @@
             this.ExecuteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ExecuteButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ExecuteButton.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.ExecuteButton.Location = new System.Drawing.Point(422, 120);
+            this.ExecuteButton.Location = new System.Drawing.Point(422, 119);
             this.ExecuteButton.Name = "ExecuteButton";
             this.ExecuteButton.Size = new System.Drawing.Size(87, 26);
             this.ExecuteButton.TabIndex = 9;
@@ -210,17 +221,18 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "Target file :";
             // 
-            // textBox1
+            // TargetFilePathTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(104, 58);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(312, 21);
-            this.textBox1.TabIndex = 14;
+            this.TargetFilePathTextBox.Location = new System.Drawing.Point(104, 55);
+            this.TargetFilePathTextBox.Name = "TargetFilePathTextBox";
+            this.TargetFilePathTextBox.Size = new System.Drawing.Size(312, 21);
+            this.TargetFilePathTextBox.TabIndex = 14;
+            this.TargetFilePathTextBox.Text = "No target file selected";
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(422, 51);
+            this.button1.Location = new System.Drawing.Point(422, 53);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(87, 27);
             this.button1.TabIndex = 15;
@@ -252,22 +264,24 @@
             this.TarGetFolderLabel.TabIndex = 21;
             this.TarGetFolderLabel.Text = "Output Folder :";
             // 
-            // textBox2
+            // outPutFolderTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(104, 89);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(312, 21);
-            this.textBox2.TabIndex = 22;
+            this.outPutFolderTextBox.Location = new System.Drawing.Point(104, 89);
+            this.outPutFolderTextBox.Name = "outPutFolderTextBox";
+            this.outPutFolderTextBox.Size = new System.Drawing.Size(312, 21);
+            this.outPutFolderTextBox.TabIndex = 22;
+            this.outPutFolderTextBox.Text = "No output folder selected";
             // 
             // OutPutFolderButton
             // 
             this.OutPutFolderButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OutPutFolderButton.Location = new System.Drawing.Point(422, 87);
+            this.OutPutFolderButton.Location = new System.Drawing.Point(422, 86);
             this.OutPutFolderButton.Name = "OutPutFolderButton";
             this.OutPutFolderButton.Size = new System.Drawing.Size(87, 27);
             this.OutPutFolderButton.TabIndex = 23;
             this.OutPutFolderButton.Text = "Select Folder";
             this.OutPutFolderButton.UseVisualStyleBackColor = true;
+            this.OutPutFolderButton.Click += new System.EventHandler(this.OutPutFolderButton_Click);
             // 
             // label1
             // 
@@ -282,10 +296,10 @@
             // 
             this.groupBox2.Controls.Add(this.OutPutFolderButton);
             this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.textBox3);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.ThresholdTextBox);
+            this.groupBox2.Controls.Add(this.outPutFolderTextBox);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.TargetFilePathTextBox);
             this.groupBox2.Controls.Add(this.radioButton2);
             this.groupBox2.Controls.Add(this.OpenFolderButton);
             this.groupBox2.Controls.Add(this.radioButton1);
@@ -303,27 +317,14 @@
             this.groupBox2.TabIndex = 25;
             this.groupBox2.TabStop = false;
             // 
-            // radioButton1
+            // ThresholdTextBox
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(159, 189);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(45, 19);
-            this.radioButton1.TabIndex = 25;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Yes";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(210, 189);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(41, 19);
-            this.radioButton2.TabIndex = 26;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "No";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.ThresholdTextBox.Location = new System.Drawing.Point(104, 156);
+            this.ThresholdTextBox.Name = "ThresholdTextBox";
+            this.ThresholdTextBox.Size = new System.Drawing.Size(312, 21);
+            this.ThresholdTextBox.TabIndex = 28;
+            this.ThresholdTextBox.Text = "0.0";
+            this.ThresholdTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ThresholdTextBox_KeyPress);
             // 
             // label4
             // 
@@ -334,12 +335,27 @@
             this.label4.TabIndex = 27;
             this.label4.Text = "Threshold :";
             // 
-            // textBox3
+            // radioButton2
             // 
-            this.textBox3.Location = new System.Drawing.Point(104, 156);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(312, 21);
-            this.textBox3.TabIndex = 28;
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Location = new System.Drawing.Point(210, 189);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(41, 19);
+            this.radioButton2.TabIndex = 26;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "No";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(159, 189);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(45, 19);
+            this.radioButton1.TabIndex = 25;
+            this.radioButton1.Text = "Yes";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -389,17 +405,17 @@
         private System.Windows.Forms.Button ExportLogButton;
         private System.Windows.Forms.Label FilesLeft;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TargetFilePathTextBox;
         private System.Windows.Forms.Button button1;
         private FontAwesomeIcons.IconButton AboutButton;
         private System.Windows.Forms.Label TarGetFolderLabel;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox outPutFolderTextBox;
         private System.Windows.Forms.Button OutPutFolderButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox ThresholdTextBox;
         private System.Windows.Forms.Label label4;
     }
 }
