@@ -1,14 +1,13 @@
 ﻿using System;
-using System.ComponentModel;  //for background workers
 using System.Diagnostics;     //for stopwatch timers
 using System.IO;              //for file io
 using System.Text;            //for string manipulation
-using System.Windows.Forms;  
-using System.Threading.Tasks; //for task parallel (not used yet)
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections.Concurrent;
-using System.Drawing;
+using System.Windows.Forms;   //for forms 
+using System.Threading.Tasks; //for task parallel library
+using System.Collections.Generic; //for enumerable lists
+using System.Linq;  //for linq queries
+using System.Collections.Concurrent; //for thread safe blocking collections
+using System.Drawing; //for widgets on the form
 namespace DAA_Project_core
 {
     public partial class MainForm : Form 
@@ -35,8 +34,9 @@ namespace DAA_Project_core
             InitializeComponent();
             form = new LogForm(this);
             about = new AboutForm();
-            //increase process priority may lead to faster execution as the prog will have more time inside cpu
-            System.Diagnostics.Process.GetCurrentProcess().PriorityClass = System.Diagnostics.ProcessPriorityClass.High;
+            increaseProcessPriority();
+
+            
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace DAA_Project_core
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private  async void ExecuteButton_Click(object sender, EventArgs e)
+        private  void ExecuteButton_Click(object sender, EventArgs e)
         {
             
             //get window size and then go through checks
@@ -85,10 +85,6 @@ namespace DAA_Project_core
                 targetFilesLength = targetfiles.Length;
                 //size of bocking collection is preset to avoid resizing the internal array
                 BC2 = new BlockingCollection<FileObject>(targetFilesLength);
-                //int x = await processing_thread(windowSize, targetfiles, progressIndicator2);
-                //text =  await generating_unified_task();  //done fucking shit
-                //LogBox.AppendText(text);
-                //LogBox.AppendText(sw.Elapsed.ToString());
                 //do everything in seprate thread from ui
                 var task_1 = Task.Factory.StartNew(() =>
                  {
@@ -96,10 +92,6 @@ namespace DAA_Project_core
                      t1();
 
                  });
-
-                //according to stackoverflow finally blocks do not work in background threads 
-                //since all task factory threads are placed in the threadpool and the threadpool handles
-                //background threads there is no finally block here any disposal must happen inside catch or try block
                 var task_2 = Task.Factory.StartNew(() =>
                 {
 
@@ -387,6 +379,15 @@ namespace DAA_Project_core
         {
             AboutForm x = new AboutForm();
             x.ShowDialog(this);
+        }
+
+
+        /// <summary>
+        /// increase process priority may lead to faster execution as the prog will have more time inside cpu
+        /// </summary>
+        private void increaseProcessPriority()
+        {
+            System.Diagnostics.Process.GetCurrentProcess().PriorityClass = System.Diagnostics.ProcessPriorityClass.High;
         }
         #endregion
 
