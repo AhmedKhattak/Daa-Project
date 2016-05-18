@@ -21,6 +21,7 @@
         {
             fileName = string.Empty;
             fileContentstring = string.Empty;
+            ratio = 0.0;
         }
 
 

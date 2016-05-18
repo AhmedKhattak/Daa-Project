@@ -23,7 +23,7 @@ namespace DAA_Project_core
         private string[] targetfiles=null;
         List<string> filetomatchwords = new List<string>();
         List<FileObject> listOfFileObjects= new List<FileObject>();
-        BlockingCollection<FileObject> BC2= new BlockingCollection<FileObject>();
+        BlockingCollection<FileObject> BC2;
         LogForm form;
         AboutForm about;
         Stopwatch sw = new Stopwatch();
@@ -34,7 +34,11 @@ namespace DAA_Project_core
             //form = new LogForm(this);
             about = new AboutForm();
             increaseProcessPriority();
-            
+            ToolTip tooltip = new ToolTip();
+            tooltip.SetToolTip(radioButton1,"This will be slower");
+            tooltip.SetToolTip(radioButton2,"This will be faster");
+            tooltip.SetToolTip(AboutButton, "About");
+
         }
 
        
@@ -92,7 +96,7 @@ namespace DAA_Project_core
                 sw.Start();//start stopwatch
                 targetFilesLength = targetfiles.Length;
                 //size of bocking collection is preset to avoid resizing the internal array
-                
+                BC2=new BlockingCollection<FileObject>(targetfiles.Length);
                 //do everything in seprate thread from ui
                 var task_1 = Task.Factory.StartNew(() =>
                  {
@@ -112,6 +116,8 @@ namespace DAA_Project_core
                     var max = listOfFileObjects.OrderByDescending(o => o.ratio).First();
                     this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("Best Match : File {0} Ratio {1}\n", max.fileName, max.ratio)); });
                     max = null;
+                    listOfFileObjects.Clear();
+                    
                     //foreach (var x in listOfFileObjects)
                     //{
                     //    this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("File {0} Ratio {1}\n", x.fileName, x.ratio)); });
@@ -186,7 +192,7 @@ namespace DAA_Project_core
                     x.fileContentstring= string.Empty;
                     x.ratio =(double)(filetomatchwords.Intersect(words).Count() / (double)filetomatchwords.Union(words).Count());
 
-                    if (radioButton2.Checked)
+                    if (radioButton1.Checked)
                     {
                         count = 1;
                         using (StreamWriter writer = new StreamWriter(outPutFolderPath + @"\" + Path.GetFileName(x.fileName)))
@@ -206,12 +212,15 @@ namespace DAA_Project_core
                                     count++;
                                 }
                             }
-                            counter++;
+                            
 
                         }
+                        
                     }
+                    counter++;
                     Array.Clear(words, 0, words.Length);
                     listOfFileObjects.Add(x);
+                    //words = null;
                     this.Invoke((MethodInvoker)delegate { FilesLeft.Text = targetFilesLength + "/" + counter; });
                     count++;
 
