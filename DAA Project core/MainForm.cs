@@ -116,7 +116,7 @@ namespace DAA_Project_core
                     var max = listOfFileObjects.OrderByDescending(o => o.ratio).First();
                     this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("Best Match : File {0} Ratio {1}\n", max.fileName, max.ratio)); });
                     max = null;
-                    listOfFileObjects.Clear();
+                    //listOfFileObjects.Clear();
                     
                     //foreach (var x in listOfFileObjects)
                     //{
@@ -188,10 +188,10 @@ namespace DAA_Project_core
                 {
 
 
-                    words = x.fileContentstring.Split(' ');
+                    words = x.fileContentstring.Replace(Environment.NewLine," ").Split(' ');
                     x.fileContentstring= string.Empty;
                     x.ratio =(double)(filetomatchwords.Intersect(words).Count() / (double)filetomatchwords.Union(words).Count());
-
+                    Console.WriteLine();
                     if (radioButton1.Checked)
                     {
                         count = 1;
@@ -356,24 +356,43 @@ namespace DAA_Project_core
             TargetFilePathTextBox.Text= openFile();
             filetomatch = TargetFilePathTextBox.Text;
             filetomatchwords.Clear();
-            if (File.Exists(filetomatch) == false)
+            StreamReader srm = null;
+            StringBuilder builder = new StringBuilder();
+            try
             {
-                LogBox.AppendText("File not found please select valid file !" + Environment.NewLine);
-            }
-            else
-            {
-                try
+                if (filetomatch != string.Empty)
                 {
-                    string text = File.ReadAllText(filetomatch);
-                    filetomatchwords = text.Split(' ').ToList();
-                    LogBox.AppendText("Loaded Target File :" +filetomatch+Environment.NewLine);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                }
-            }
+                    LogBox.AppendText(String.Format("Loading Target File {0} please wait\n", filetomatch));
+                    srm = File.OpenText(filetomatch);
+                    {
+                        while (!srm.EndOfStream)
+                        {
+                            builder.Append((srm.ReadLine()));
+                        }
 
+                        srm.DiscardBufferedData();
+                        srm.Close();
+
+                    }
+
+                    filetomatchwords = builder.ToString().Replace(Environment.NewLine, " ").Split(' ').ToList();
+                    LogBox.AppendText(String.Format("Loaded  Target File {0} ", filetomatch));
+                }
+                else
+                {
+                    //
+                }
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(x.Message);
+            }
+            finally
+            {
+                if (srm != null)
+                { srm.Dispose(); }
+                builder.Clear();
+            }
 
 
         }
