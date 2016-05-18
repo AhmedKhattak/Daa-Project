@@ -16,16 +16,14 @@ namespace DAA_Project_core
         /// organized fields according to their types and near types
         /// </summary>
         private string targetFolderPath = string.Empty;
-        string matchedfile;
         string filetomatch;
         string outPutFolderPath = string.Empty;
         private int windowSize = 0;
-        double threshhold;
         int targetFilesLength = 0;
         private string[] targetfiles=null;
         List<string> filetomatchwords = new List<string>();
         List<FileObject> listOfFileObjects= new List<FileObject>();
-        BlockingCollection<FileObject> BC2;
+        BlockingCollection<FileObject> BC2= new BlockingCollection<FileObject>();
         LogForm form;
         AboutForm about;
         Stopwatch sw = new Stopwatch();
@@ -71,6 +69,7 @@ namespace DAA_Project_core
 
             //get window size and then go through checks
             windowSize = Convert.ToInt32(WindowsSizeSpinner.Value);
+            listOfFileObjects.Clear();
             if (targetFolderPath == string.Empty)
             {
                 LogBox.AppendText("Please select a valid target folder in order to continue !" + Environment.NewLine);
@@ -89,10 +88,11 @@ namespace DAA_Project_core
             }
             else
             {
+                sw.Reset();
                 sw.Start();//start stopwatch
                 targetFilesLength = targetfiles.Length;
                 //size of bocking collection is preset to avoid resizing the internal array
-                BC2 = new BlockingCollection<FileObject>(targetFilesLength);
+                
                 //do everything in seprate thread from ui
                 var task_1 = Task.Factory.StartNew(() =>
                  {
@@ -109,13 +109,14 @@ namespace DAA_Project_core
 
 
                     this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("finding file with largest ratio...\n")); });
-                    var max=  listOfFileObjects.OrderByDescending(o => o.ratio).First();
+                    var max = listOfFileObjects.OrderByDescending(o => o.ratio).First();
                     this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("Best Match : File {0} Ratio {1}\n", max.fileName, max.ratio)); });
+                    max = null;
                     //foreach (var x in listOfFileObjects)
                     //{
                     //    this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("File {0} Ratio {1}\n", x.fileName, x.ratio)); });
                     //}
-                   
+
 
                 });
 
@@ -131,18 +132,12 @@ namespace DAA_Project_core
         /// </summary>
         private void t1()
         {
-
-
-          
-
             StringBuilder builder = new StringBuilder();
             try
             {
 
-
+                //int counter = 0;
                 this.Invoke((MethodInvoker)delegate { LogBox.AppendText(String.Format("started task 1\n")); });
-
-
                 foreach (var file in targetfiles)
                 {
                     foreach (string line in File.ReadLines(file))
@@ -151,8 +146,12 @@ namespace DAA_Project_core
                     }
                     BC2.Add(new FileObject(file, builder.ToString()));
                     builder.Clear();
+                    //this.Invoke((MethodInvoker)delegate { FilesLeft.Text = targetFilesLength + "/" + counter; });
+                    //counter++;
+                    
 
                 }
+                builder.Clear(); //clear any remaining data in builder
                 BC2.CompleteAdding(); //tells the blocking collection that it should not expect any more data to be added to it
                 //this ensures that the collection does not sit in an infinite blocking state
 
@@ -183,7 +182,7 @@ namespace DAA_Project_core
                 {
 
 
-                    words = x.fileContentstring.Replace("\r\n", " ").Split(' ');
+                    words = x.fileContentstring.Split(' ');
                     x.fileContentstring= string.Empty;
                     x.ratio =(double)(filetomatchwords.Intersect(words).Count() / (double)filetomatchwords.Union(words).Count());
 

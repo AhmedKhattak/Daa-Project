@@ -34,3 +34,15 @@ C:\Users\Ahmed\Desktop\daa\DAA Project core\obj\Release\DAA Project core.csproj.
 C:\Users\Ahmed\Desktop\daa\DAA Project core\bin\Release\DAA Project core.exe
 C:\Users\Ahmed\Desktop\daa\DAA Project core\bin\Release\DAA Project core.pdb
 C:\Users\Ahmed\Desktop\daa\DAA Project core\bin\Release\FontAwesomeIcons.dll
+C:\Users\KhattaK\Desktop\daa\DAA Project core\bin\Release\DAA Project core.exe.config
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA Project core.exe
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA Project core.pdb
+C:\Users\KhattaK\Desktop\daa\DAA Project core\bin\Release\DAA Project core.exe
+C:\Users\KhattaK\Desktop\daa\DAA Project core\bin\Release\DAA Project core.pdb
+C:\Users\KhattaK\Desktop\daa\DAA Project core\bin\Release\FontAwesomeIcons.dll
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA Project core.csprojResolveAssemblyReference.cache
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA_Project_core.LogForm.resources
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA_Project_core.MainForm.resources
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA_Project_core.AboutForm.resources
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA_Project_core.Properties.Resources.resources
+C:\Users\KhattaK\Desktop\daa\DAA Project core\obj\Release\DAA Project core.csproj.GenerateResource.Cache
